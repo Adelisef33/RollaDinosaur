@@ -1,0 +1,78 @@
+@model IEnumerable<Dinosaur>
+
+@{
+    ViewData["Title"] = "Dinosaur Database";
+    
+    string GetRankBadgeClass(DinosaurRank rank)
+    {
+        return rank switch
+        {
+            DinosaurRank.Apex => "danger",
+            DinosaurRank.SubApex => "warning",
+            DinosaurRank.HighTier => "info",
+            DinosaurRank.MidTier => "primary",
+            DinosaurRank.LowTier => "secondary",
+            _ => "secondary"
+        };
+    }
+
+    string GetRankDisplay(DinosaurRank rank)
+    {
+        return rank switch
+        {
+            DinosaurRank.SubApex => "Sub-Apex",
+            DinosaurRank.HighTier => "High-Tier",
+            DinosaurRank.MidTier => "Mid-Tier",
+            DinosaurRank.LowTier => "Low-Tier",
+            _ => rank.ToString()
+        };
+    }
+}
+
+<h1>Dinosaur Database</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Add New Dinosaur</a>
+</p>
+
+@foreach (var rank in Enum.GetValues<DinosaurRank>())
+{
+    var dinosaursInRank = Model.Where(d => d.Rank == rank).ToList();
+    if (dinosaursInRank.Any())
+    {
+        <div class="mb-4">
+            <h2>
+                <span class="badge bg-@GetRankBadgeClass(rank)">@GetRankDisplay(rank)</span>
+            </h2>
+            <div class="row">
+                @foreach (var item in dinosaursInRank)
+                {
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    @item.Name
+                                    <span class="badge bg-@(item.Diet == DietType.Carnivore ? "danger" : item.Diet == DietType.Herbivore ? "success" : "warning") float-end">
+                                        @item.Diet
+                                    </span>
+                                </h5>
+                                <p class="card-text">@item.Description</p>
+                                @if (item.HasDimorphism)
+                                {
+                                    <p class="text-muted small">
+                                        <strong>Sexual Dimorphism:</strong> @item.DimorphismDescription
+                                    </p>
+                                }
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}

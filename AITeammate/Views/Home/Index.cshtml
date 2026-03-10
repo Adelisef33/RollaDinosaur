@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Dinosaur Roller! ??</h1>
+    <p class="lead">Roll for random dinosaurs and explore the prehistoric world!</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">?? Dinosaur Database</h5>
+                    <p class="card-text">Browse all available dinosaurs with their rankings and characteristics.</p>
+                    <a asp-controller="Dinosaurs" asp-action="Index" class="btn btn-primary">View Database</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">?? Roll Random Dinosaur</h5>
+                    <p class="card-text">Get a random dinosaur with gender, dimorphism, and unique skin!</p>
+                    <a asp-controller="Roll" asp-action="Index" class="btn btn-success">Start Rolling</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3>Dinosaur Rankings</h3>
+        <div class="row mt-3">
+            <div class="col">
+                <span class="badge bg-danger fs-6">Apex</span>
+                <p>The most powerful predators</p>
+            </div>
+            <div class="col">
+                <span class="badge bg-warning fs-6">Sub-Apex</span>
+                <p>Strong hunters and defenders</p>
+            </div>
+            <div class="col">
+                <span class="badge bg-info fs-6">High-Tier</span>
+                <p>Capable combatants</p>
+            </div>
+            <div class="col">
+                <span class="badge bg-primary fs-6">Mid-Tier</span>
+                <p>Average survivors</p>
+            </div>
+            <div class="col">
+                <span class="badge bg-secondary fs-6">Low-Tier</span>
+                <p>Prey species</p>
+            </div>
+        </div>
+    </div>
+</div>
